@@ -33,16 +33,18 @@ export class ConversionComponent implements OnInit {
   	letters=["A","B","C", "D", "E","F"];
   	let l=0;
   	let initialB=new Array();
-  	for(let i=0; i<this.n.initialBase; i++){
-  		if(this.n.initialBase<10)
-  			initialB.push(i)
-  		else{
-  			initialB=[0,1,2,3,4,5,6,7,8,9]
-  			initialB.push(letters[l])
-  			l+=1
+  	if(this.n.initialBase<10){
+	  	for(let i=0; i<this.n.initialBase; i++){
+			initialB.push(i)
   		}
   	}
-  	console.log(initialB)
+  	else{
+  		initialB=[0,1,2,3,4,5,6,7,8,9];
+  		for(let i=0; i<this.n.initialBase-10; i++){
+			initialB.push(letters[i])
+  		}
+  	}
+  	
   	let r=0;
   	let index=this.n.number.length-1;
   	for(let n in this.n.number){
