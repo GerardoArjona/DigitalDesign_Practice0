@@ -1,0 +1,25 @@
+#logo-unam{
+	height: 155px;
+    width: 150px;
+}
+
+#logo-fi{
+	height: 137px;
+    width: 130px;
+}
+
+h1, h2, h3, h4 {
+	color: #E6CE00;
+}
+
+h5 {
+	color: #C0E0DA;
+}
+
+.card-title{
+	color: black;
+}
+
+.card{
+	width: 100%;
+}
