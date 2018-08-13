@@ -20,6 +20,24 @@ export class ConversionComponent implements OnInit {
   	resultado:null,
   };
 
+  checkInitialBase(){
+    let initial = (<HTMLInputElement>document.getElementById("initial"));
+    if(initial.valueAsNumber>16){
+     initial.valueAsNumber=16;
+    }else if(initial.valueAsNumber<=1){
+      initial.valueAsNumber=2;
+    }
+  }
+
+  checkFinalBase(){
+    let final = (<HTMLInputElement>document.getElementById("final"));
+    if(final.valueAsNumber>16){
+      final.valueAsNumber=16;
+    }else if(final.valueAsNumber<=1){
+      final.valueAsNumber=2;
+    }
+  }
+
   calculateResult(){
   	
     let rBaseFinal:number;
@@ -31,18 +49,14 @@ export class ConversionComponent implements OnInit {
       r=(parseInt(this.n.number[n])*(this.n.initialBase**index))+r
       index-=1
     }
-    console.log(r);
 
     rBaseFinal=r%this.n.finalBase;
     resultado=String(rBaseFinal);
     num=r/this.n.finalBase;
     do{
       rBaseFinal=Math.trunc(num%this.n.finalBase);
-      //console.log(rBaseFinal);
       resultado=String(rBaseFinal)+resultado;
       num=num/this.n.finalBase;
-      //console.log(num);
-      //console.log(resultado);
     }while(num>=this.n.finalBase);
     resultado=String(Math.trunc(num))+resultado;
     this.n.resultado=resultado;

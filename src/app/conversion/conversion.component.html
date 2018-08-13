@@ -29,11 +29,11 @@
 				  </div>
 				  <div class="form-group">
 				    <label for="exampleInputPassword1">Ingrese la base inicial:</label>
-				    <input type="text" class="form-control text-center" id="initial-base" placeholder="10" name="initial-base" [(ngModel)]="n.initialBase">
+				    <input type="number" class="form-control text-center" id="initial-base" placeholder="10" name="initial-base" [(ngModel)]="n.initialBase" id="initial" (focusout)="checkInitialBase()">
 				  </div>
 				  <div class="form-group">
 				    <label for="exampleInputPassword1">Ingrese la base final:</label>
-				    <input type="text" class="form-control text-center" id="final-base" placeholder="2" name="final-base" [(ngModel)]="n.finalBase">
+				    <input type="number" class="form-control text-center" id="final-base" placeholder="2" name="final-base" [(ngModel)]="n.finalBase" id="final" (focusout)="checkFinalBase()">
 				  </div>
 				  <button type="button" (click)="calculateResult()" class="btn btn-success">Calcular</button>
 				</form>
