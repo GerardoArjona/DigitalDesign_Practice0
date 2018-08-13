@@ -1,6 +1,6 @@
 export class Number {
 	number: number;
-	initial-base: number;	
-	final-base: number;
+	initialBase: number;	
+	finalBase: number;
 	resultado: number;
 }
