@@ -1,6 +1,6 @@
 export class Number {
-	number: number;
+	number: string;
 	initialBase: number;	
 	finalBase: number;
-	resultado: number;
+	resultado: string;
 }

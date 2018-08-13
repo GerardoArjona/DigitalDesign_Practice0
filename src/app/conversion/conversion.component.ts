@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Number } from 'number';
+import { Number } from './number';
 
 
 @Component({
@@ -21,37 +21,31 @@ export class ConversionComponent implements OnInit {
   };
 
   calculateResult(){
-  	const converterDecimal={
-  		"A":10,
-  		"B":11,
-  		"C":12,
-  		"D":13,
-  		"E":14,
-  		"F":15
-  	};
-  	let letters:string[]
-  	letters=["A","B","C", "D", "E","F"];
-  	let l=0;
-  	let initialB=new Array();
-  	if(this.n.initialBase<10){
-	  	for(let i=0; i<this.n.initialBase; i++){
-			initialB.push(i)
-  		}
-  	}
-  	else{
-  		initialB=[0,1,2,3,4,5,6,7,8,9];
-  		for(let i=0; i<this.n.initialBase-10; i++){
-			initialB.push(letters[i])
-  		}
-  	}
   	
-  	let r=0;
-  	let index=this.n.number.length-1;
-  	for(let n in this.n.number){
-  		r=(this.n.number[n]*(this.n.initialBase**index))+r
-  		index-=1
-  	}
-  	console.log(r)
+    let rBaseFinal:number;
+    let resultado:string;
+    let r:number=0;
+    let num:number;
+    let index=this.n.number.length-1;
+		for(let n=0; n<this.n.number.length; n++){
+      r=(parseInt(this.n.number[n])*(this.n.initialBase**index))+r
+      index-=1
+    }
+    console.log(r);
+
+    rBaseFinal=r%this.n.finalBase;
+    resultado=String(rBaseFinal);
+    num=r/this.n.finalBase;
+    do{
+      rBaseFinal=Math.trunc(num%this.n.finalBase);
+      //console.log(rBaseFinal);
+      resultado=String(rBaseFinal)+resultado;
+      num=num/this.n.finalBase;
+      //console.log(num);
+      //console.log(resultado);
+    }while(num>=this.n.finalBase);
+    resultado=String(Math.trunc(num))+resultado;
+    this.n.resultado=resultado;
   }
 
 
