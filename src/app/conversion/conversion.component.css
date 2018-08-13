@@ -22,4 +22,7 @@ h5 {
 
 .card{
 	width: 100%;
+	border: 1px solid;
+    padding: 10px;
+    box-shadow: 2px 3px;
 }
