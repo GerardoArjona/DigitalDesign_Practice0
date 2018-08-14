@@ -68,8 +68,8 @@ export class ConversionComponent implements OnInit {
     }
 
     rBaseFinal=r%this.n.finalBase;
-    if(this.converter.hasOwnProperty(rBaseFinal)){
-      b=String(this.converter[rBaseFinal]);
+    if(_.findKey(this.converter,  _.partial(_.isEqual, rBaseFinal))){
+      b=_.findKey(this.converter, _.partial(_.isEqual, rBaseFinal));
     }else{
       b=String(rBaseFinal);
     }
@@ -81,8 +81,8 @@ export class ConversionComponent implements OnInit {
     num=r/this.n.finalBase;
     do{
       rBaseFinal=Math.trunc(num%this.n.finalBase)
-      if(this.converter.hasOwnProperty(rBaseFinal)){
-        b=String(this.converter[rBaseFinal]);
+      if(_.findKey(this.converter,  _.partial(_.isEqual, rBaseFinal))){
+        b=_.findKey(this.converter, _.partial(_.isEqual, rBaseFinal));
       }else{
         b=String(rBaseFinal);
       }
@@ -97,7 +97,6 @@ export class ConversionComponent implements OnInit {
     console.log(num)
     if(_.findKey(this.converter,  _.partial(_.isEqual, num))){
       b=_.findKey(this.converter, _.partial(_.isEqual, num));
-      console.log(b)
     }else{
       b=String(num);
     }
