@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import _ from 'lodash';
 import { Number } from './number';
 
 
@@ -49,7 +50,7 @@ export class ConversionComponent implements OnInit {
 
   calculateResult(){
     
-    let rBaseFinal:number, r:number=0, nu:string, num:number, b:string;
+    let rBaseFinal:number, r:number=0, nu:string, num:number, b:string, v:number;
     let resultado:string;
     let index=this.n.number.length-1;
 		for(let n=0; n<this.n.number.length; n++){
@@ -94,8 +95,9 @@ export class ConversionComponent implements OnInit {
     }while(num>=this.n.finalBase);
     num=Math.trunc(num);
     console.log(num)
-    if(this.converter.hasOwnProperty(num)){
-      b=String(this.converter[num]);
+    if(_.findKey(this.converter,  _.partial(_.isEqual, num))){
+      b=_.findKey(this.converter, _.partial(_.isEqual, num));
+      console.log(b)
     }else{
       b=String(num);
     }
