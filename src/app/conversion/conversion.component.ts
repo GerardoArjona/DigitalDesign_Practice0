@@ -13,6 +13,15 @@ export class ConversionComponent implements OnInit {
 
   constructor() { }
 
+  converter={
+    "A":10,
+    "B":11,
+    "C":12,
+    "D":13,
+    "E":14,
+    "F":15
+  };
+
   n: Number = {
   	number:null,
   	initialBase:null,
@@ -39,14 +48,19 @@ export class ConversionComponent implements OnInit {
   }
 
   calculateResult(){
-  	
-    let rBaseFinal:number;
+    
+    let rBaseFinal:number, r:number=0, nu:string, num:number;
     let resultado:string;
-    let r:number=0;
-    let num:number;
     let index=this.n.number.length-1;
 		for(let n=0; n<this.n.number.length; n++){
-      r=(parseInt(this.n.number[n])*(this.n.initialBase**index))+r
+      if(this.converter.hasOwnProperty(this.n.number[n])){
+        nu=String(this.converter[this.n.number[n]]);
+        String(nu);
+        console.log(nu);
+      }else{
+        nu=this.n.number[n];
+      }
+      r=(parseInt(nu)*(this.n.initialBase**index))+r
       index-=1
     }
 
