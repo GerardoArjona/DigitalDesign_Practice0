@@ -49,7 +49,7 @@ export class ConversionComponent implements OnInit {
 
   calculateResult(){
     
-    let rBaseFinal:number, r:number=0, nu:string, num:number;
+    let rBaseFinal:number, r:number=0, nu:string, num:number, b:string;
     let resultado:string;
     let index=this.n.number.length-1;
 		for(let n=0; n<this.n.number.length; n++){
@@ -67,14 +67,43 @@ export class ConversionComponent implements OnInit {
     }
 
     rBaseFinal=r%this.n.finalBase;
-    resultado=String(rBaseFinal);
+    if(this.converter.hasOwnProperty(rBaseFinal)){
+      b=String(this.converter[rBaseFinal]);
+    }else{
+      b=String(rBaseFinal);
+    }
+    if(parseInt(b)>=this.n.finalBase){
+      this.n.resultado="Error: "+rBaseFinal+" no pertenece al dominio de la base final "+String(this.n.finalBase);
+      return 0;
+    }
+    resultado=String(b);
     num=r/this.n.finalBase;
     do{
-      rBaseFinal=Math.trunc(num%this.n.finalBase);
-      resultado=String(rBaseFinal)+resultado;
+      rBaseFinal=Math.trunc(num%this.n.finalBase)
+      if(this.converter.hasOwnProperty(rBaseFinal)){
+        b=String(this.converter[rBaseFinal]);
+      }else{
+        b=String(rBaseFinal);
+      }
+      if(parseInt(b)>=this.n.finalBase){
+        this.n.resultado="Error: "+rBaseFinal+" no pertenece al dominio de la base final "+String(this.n.finalBase);
+        return 0;
+      }
+      resultado=String(b)+resultado;
       num=num/this.n.finalBase;
     }while(num>=this.n.finalBase);
-    resultado=String(Math.trunc(num))+resultado;
+    num=Math.trunc(num);
+    console.log(num)
+    if(this.converter.hasOwnProperty(num)){
+      b=String(this.converter[num]);
+    }else{
+      b=String(num);
+    }
+    if(parseInt(b)>=this.n.finalBase){
+      this.n.resultado="Error: "+num+" no pertenece al dominio de la base final "+String(this.n.finalBase);
+      return 0;
+    }
+    resultado=String(b)+resultado;
     this.n.resultado=resultado;
   }
 
