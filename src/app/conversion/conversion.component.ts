@@ -73,9 +73,11 @@ export class ConversionComponent implements OnInit {
     }else{
       b=String(rBaseFinal);
     }
-    if(parseInt(b)>=this.n.finalBase){
-      this.n.resultado="Error: "+rBaseFinal+" no pertenece al dominio de la base final "+String(this.n.finalBase);
-      return 0;
+    if(this.converter.hasOwnProperty(b)){
+      if(this.converter[b]>=this.n.finalBase){
+        this.n.resultado="Error: "+rBaseFinal+" no pertenece al dominio de la base final "+String(this.n.finalBase);
+        return 0;
+      }
     }
     resultado=String(b);
     num=r/this.n.finalBase;
@@ -86,23 +88,26 @@ export class ConversionComponent implements OnInit {
       }else{
         b=String(rBaseFinal);
       }
-      if(parseInt(b)>=this.n.finalBase){
-        this.n.resultado="Error: "+rBaseFinal+" no pertenece al dominio de la base final "+String(this.n.finalBase);
-        return 0;
+      if(this.converter.hasOwnProperty(b)){
+        if(this.converter[b]>=this.n.finalBase){
+          this.n.resultado="Error: "+rBaseFinal+" no pertenece al dominio de la base final "+String(this.n.finalBase);
+          return 0;
+        }
       }
       resultado=String(b)+resultado;
       num=num/this.n.finalBase;
     }while(num>=this.n.finalBase);
     num=Math.trunc(num);
-    console.log(num)
     if(_.findKey(this.converter,  _.partial(_.isEqual, num))){
       b=_.findKey(this.converter, _.partial(_.isEqual, num));
     }else{
       b=String(num);
     }
-    if(parseInt(b)>=this.n.finalBase){
-      this.n.resultado="Error: "+num+" no pertenece al dominio de la base final "+String(this.n.finalBase);
-      return 0;
+    if(this.converter.hasOwnProperty(b)){
+      if(this.converter[b]>=this.n.finalBase){
+        this.n.resultado="Error: "+rBaseFinal+" no pertenece al dominio de la base final "+String(this.n.finalBase);
+        return 0;
+      }
     }
     resultado=String(b)+resultado;
     this.n.resultado=resultado;
