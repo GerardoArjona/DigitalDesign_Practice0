@@ -1,3 +1,68 @@
-<p>
-  conversion works!
-</p>
+<div class="row justify-content-center">
+	<div class="col-xl-4 col-lg-4 col-md-4"></div>
+	<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 text-center">
+		<img src="assets/img/FI.png" id="logo-fi">
+		<img src="assets/img/unam.png" id="logo-unam">
+	</div>
+	<div class="col-xl-4 col-lg-4 col-md-4"></div>
+</div>
+<div class="container">
+	<div class="row justify-content-center">
+		<h1 class="text-center">Universidad Nacional Autónoma de México</h1>
+	</div>
+	<div class="row justify-content-center">
+		<h2 class="text-center">Facultad de Ingeniería</h2>
+	</div>
+	<div class="row justify-content-center">
+		<h3 class="text-center">Ingeniería en Computación</h3>
+	</div>
+	<div class="row justify-content-center">
+		<div class="col-xl-2 col-lg-2 col-md-2"></div>
+		<div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-xs-12 text-center">
+			<div class="card">
+				<div class="card-body">
+			    <h5 class="card-title text-center">Convertidor de sistemas numéricos</h5>
+			    <form>
+				  <div class="form-group">
+				    <label for="exampleInputEmail1">Ingrese el número:</label>
+				    <input type="text" class="form-control text-center" id="number" placeholder="456871" name="number" [(ngModel)]="n.number">
+				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputPassword1">Ingrese la base inicial:</label>
+				    <input type="number" class="form-control text-center" id="initial-base" placeholder="10" name="initial-base" [(ngModel)]="n.initialBase" id="initial" (focusout)="checkInitialBase()">
+				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputPassword1">Ingrese la base final:</label>
+				    <input type="number" class="form-control text-center" id="final-base" placeholder="2" name="final-base" [(ngModel)]="n.finalBase" id="final" (focusout)="checkFinalBase()">
+				  </div>
+				  <button type="button" (click)="calculateResult()" class="btn btn-success">Calcular</button>
+				</form>
+			  </div>
+			</div>
+		</div>
+		<div class="col-xl-2 col-lg-2 col-md-2"></div>
+	</div>
+	<br>
+	<div class="row justify-content-center">
+		<div class="col-xl-2 col-lg-2 col-md-2"></div>
+		<div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-xs-12 text-center">
+			<div class="card">
+				<div class="card-body">
+			    <h5 class="card-title text-center">Resultado:</h5>
+			    <br>
+			    <p>{{n.resultado}}</p>
+			  </div>
+			</div>
+		</div>
+		<div class="col-xl-2 col-lg-2 col-md-2"></div>
+	</div>
+	<br>
+	<br>
+	<div class="row justify-content-center">
+	    <footer>
+	    	<h3 class="text-center">Diseño Digital Moderno</h3>
+	    	<h4 class="text-center">Grupo: 03</h4>
+            <h5 class="text-center">Gerardo Arjona Jiménez</h5>
+        </footer>
+	</div>
+</div>
