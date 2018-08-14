@@ -26,3 +26,12 @@ h5 {
     padding: 10px;
     box-shadow: 2px 3px;
 }
+
+
+::-webkit-input-placeholder { /* WebKit browsers */
+     opacity: .55 !important;
+}
+
+i{
+	cursor: pointer;
+}
