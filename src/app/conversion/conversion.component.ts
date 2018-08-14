@@ -55,10 +55,12 @@ export class ConversionComponent implements OnInit {
 		for(let n=0; n<this.n.number.length; n++){
       if(this.converter.hasOwnProperty(this.n.number[n])){
         nu=String(this.converter[this.n.number[n]]);
-        String(nu);
-        console.log(nu);
       }else{
         nu=this.n.number[n];
+      }
+      if(parseInt(nu)>=this.n.initialBase){
+        this.n.resultado="Error: "+this.n.number[n]+" no pertenece al dominio de la base inicial "+String(this.n.initialBase);
+        return 0;
       }
       r=(parseInt(nu)*(this.n.initialBase**index))+r
       index-=1
