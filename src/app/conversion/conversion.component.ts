@@ -50,21 +50,107 @@ export class ConversionComponent implements OnInit {
 
   calculateResult(){
     
-    let rBaseFinal:number, r:number=0, nu:string, num:number, b:string, v:number;
-    let resultado:string;
+    let rBaseFinal:number, r:number=0, nu:string, num:number, nume:number, b:string, v:number;
+    let resultado:string, resultadoFlotante:string, res:string [], resu:string;
+    let flotante:string [], flotanteBaseInicial:number=0 , flotanteBaseFinal:number;
     let index=this.n.number.length-1;
-		for(let n=0; n<this.n.number.length; n++){
-      if(this.converter.hasOwnProperty(this.n.number[n])){
-        nu=String(this.converter[this.n.number[n]]);
+    let negIndex=-1;
+
+    //Inicia conversion a base Decimal
+    if(this.n.number.indexOf('.')>-1){
+      flotante=this.n.number.split('.');
+      for(let i=0; i<flotante[1].length; i++){
+        if(this.converter.hasOwnProperty(flotante[1][i])){
+          nu=String(this.converter[flotante[1][i]]);
+        }else{
+          nu=flotante[1][i];
+        }
+        if(parseInt(nu)>=this.n.initialBase){
+          this.n.resultado="Error: "+flotante[1][i]+" no pertenece al dominio de la base inicial "+String(this.n.initialBase);
+          return 0;
+        }
+        flotanteBaseInicial=(parseFloat(nu)*(this.n.initialBase**negIndex))+flotanteBaseInicial;
+        negIndex-=1
+      }
+      let index=flotante[0].length-1;
+      for(let n=0; n<flotante[0].length; n++){
+        if(this.converter.hasOwnProperty(flotante[0][n])){
+          nu=String(this.converter[flotante[0][n]]);
+        }else{
+          nu=flotante[0][n];
+        }
+        if(parseInt(nu)>=this.n.initialBase){
+          this.n.resultado="Error: "+flotante[0][n]+" no pertenece al dominio de la base inicial "+String(this.n.initialBase);
+          return 0;
+        }
+        r=(parseInt(nu)*(this.n.initialBase**index))+r;
+        index-=1
+      }
+    }else{
+      flotanteBaseInicial=0;
+      for(let n=0; n<this.n.number.length; n++){
+        if(this.converter.hasOwnProperty(this.n.number[n])){
+          nu=String(this.converter[this.n.number[n]]);
+        }else{
+          nu=this.n.number[n];
+        }
+        if(parseInt(nu)>=this.n.initialBase){
+          this.n.resultado="Error: "+this.n.number[n]+" no pertenece al dominio de la base inicial "+String(this.n.initialBase);
+          return 0;
+        }
+        r=(parseInt(nu)*(this.n.initialBase**index))+r
+        index-=1
+      }
+    }
+
+
+    //Inicia conversion a base Final
+    if(flotanteBaseInicial!=0){
+      flotanteBaseFinal=flotanteBaseInicial%this.n.finalBase;
+      if(_.findKey(this.converter,  _.partial(_.isEqual, flotanteBaseFinal))){
+        b=_.findKey(this.converter, _.partial(_.isEqual, flotanteBaseFinal));
       }else{
-        nu=this.n.number[n];
+        b=String(flotanteBaseFinal);
       }
-      if(parseInt(nu)>=this.n.initialBase){
-        this.n.resultado="Error: "+this.n.number[n]+" no pertenece al dominio de la base inicial "+String(this.n.initialBase);
-        return 0;
+      if(this.converter.hasOwnProperty(b)){
+        if(this.converter[b]>=this.n.finalBase){
+          this.n.resultado="Error: "+flotanteBaseFinal+" no pertenece al dominio de la base final "+String(this.n.finalBase);
+          return 0;
+        }
       }
-      r=(parseInt(nu)*(this.n.initialBase**index))+r
-      index-=1
+      resultadoFlotante=String(b);
+      nume=flotanteBaseInicial/this.n.finalBase;
+      do{
+        flotanteBaseFinal=Math.trunc(nume%this.n.finalBase)
+        if(_.findKey(this.converter,  _.partial(_.isEqual,flotanteBaseFinal))){
+          b=_.findKey(this.converter, _.partial(_.isEqual, flotanteBaseFinal));
+        }else{
+          b=String(flotanteBaseFinal);
+        }
+        if(this.converter.hasOwnProperty(b)){
+          if(this.converter[b]>=this.n.finalBase){
+            this.n.resultado="Error: "+flotanteBaseFinal+" no pertenece al dominio de la base final "+String(this.n.finalBase);
+            return 0;
+          }
+        }
+        resultadoFlotante=String(b)+resultadoFlotante;
+        nume=nume/this.n.finalBase;
+      }while(nume>=this.n.finalBase);
+      nume=Math.trunc(nume);
+      if(_.findKey(this.converter,  _.partial(_.isEqual, nume))){
+        b=_.findKey(this.converter, _.partial(_.isEqual, nume));
+      }else{
+        b=String(nume);
+      }
+      if(this.converter.hasOwnProperty(b)){
+        if(this.converter[b]>=this.n.finalBase){
+          this.n.resultado="Error: "+flotanteBaseFinal+" no pertenece al dominio de la base final "+String(this.n.finalBase);
+          return 0;
+        }
+      }
+      resultadoFlotante=String(b)+resultadoFlotante;
+    }else{
+      resultadoFlotante="";
     }
 
     rBaseFinal=r%this.n.finalBase;
@@ -110,7 +196,14 @@ export class ConversionComponent implements OnInit {
       }
     }
     resultado=String(b)+resultado;
-    this.n.resultado=resultado;
+
+    if(resultadoFlotante.indexOf('.')>-1){
+      res=resultadoFlotante.split('.');
+      resu='.'+res[1]
+    }else{
+      resu="";
+    }
+    this.n.resultado=resultado+resu;
   }
 
 
