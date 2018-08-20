@@ -52,8 +52,31 @@ export class ConversionComponent implements OnInit {
     
     let rBaseFinal:number, r:number=0, nu:string, num:number, b:string, v:number;
     let resultado:string;
+    let flotante:string [], flotanteBaseInicial:number=0 , flotanteBaseFinal:number;
     let index=this.n.number.length-1;
-		for(let n=0; n<this.n.number.length; n++){
+    let negIndex=-1;
+    if(this.n.number.indexOf('.')>-1){
+      flotante=this.n.number.split('.');
+      for(let i=0; i<flotante[1].length; i++){
+        if(this.converter.hasOwnProperty(flotante[1][i])){
+          nu=String(this.converter[flotante[1][i]]);
+        }else{
+          nu=flotante[1][i];
+        }
+        if(parseInt(nu)>=this.n.initialBase){
+          this.n.resultado="Error: "+flotante[1][i]+" no pertenece al dominio de la base inicial "+String(this.n.initialBase);
+          return 0;
+        }
+        flotanteBaseInicial=(parseFloat(nu)*(this.n.initialBase**negIndex))+flotanteBaseInicial;
+        negIndex-=1
+      }
+    }else{
+      flotanteBaseInicial=0;
+    }
+    
+    
+
+    for(let n=0; n<this.n.number.length; n++){
       if(this.converter.hasOwnProperty(this.n.number[n])){
         nu=String(this.converter[this.n.number[n]]);
       }else{
@@ -110,6 +133,7 @@ export class ConversionComponent implements OnInit {
       }
     }
     resultado=String(b)+resultado;
+
     this.n.resultado=resultado;
   }
 
